@@ -1,0 +1,26 @@
+
+name: Build C++ to EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Ambil source code
+        uses: actions/checkout@v4
+
+      - name: Compile C++ menjadi EXE
+        shell: pwsh
+        run: |
+          g++ tugas1.cpp -o program.exe -static -std=c++17
+
+      - name: Upload file EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: program-windows-exe
+          path: program.exe
